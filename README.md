@@ -27,6 +27,8 @@
 
 ## Tools
 ### Android Studio
+[Setting up Emulator for Speed](./tools/20180124_Setup_Emulator.md)
+
 [APK Analyzer](./tools/20180102_APK_Analyzer.md)
 
 ***
