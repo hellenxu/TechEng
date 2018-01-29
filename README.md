@@ -3,6 +3,8 @@
 ## Architecture
 
 ### Architecture Components
+[Android Development Patterns: Designing for Split-Screen Multi-Window](./architecture/20180129_multi_window_design.md)
+
 [Architecture Components: Room](./architecture/20180118_Room.md)
 
 [Architecture Components: ViewModel](./architecture/20180117_ViewModel.md)
