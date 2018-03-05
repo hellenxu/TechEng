@@ -16,6 +16,8 @@
 ***
 
 ## Features
+### PIP
+[Adding Picture in Picture to Your App](./features/20180301_Adding_PIP_to_App.md)
 
 ### ConstraintLayout
 [Keyframe Animations with ConstraintLayout and ConstraintSet](./features/20180123_Keyframe_animations.md)
