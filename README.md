@@ -39,4 +39,4 @@
 
 ## what's new
 [What's new in the Android 8.1 Developer Preview](./whatsnew/20180101_Android8.1_dev_preview.md)
-
+[What's new in the Android P Developer Preview](./whatsnew/20180813_AndroidP_dev_preview.md)
