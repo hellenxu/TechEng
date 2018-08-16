@@ -29,6 +29,28 @@ Android P brings performance and efficiency improvements to ART, Android's runti
 Kotlin is seeing massive growth in the developer community. We've heard so much Kotlin love from developers, and we're deepening our Kotlin investments. In P, you'll see the first results of our platform work with new optimization in ART. Apps written with Kotlin will run faster on P than on previous versions of Android. We're continuing to work with JetBrains to optimize the Kotlin compiler. And we're also improving our brand new D8 dexer to make sure generated code from Kotlin can run as fast as possible. Also, make sure to check out our ongoing preview of Android KTX, which is a set of extensions designed to make Android Kotlin development even more concise and pleasant. 
 
 #### Introducing ImageDecoder
+Android introduces an easier way to decode images to either Bitmaps or Drawables with ImageDecoder, which replaces BitmapFactory. ImageDecoder lets you create a bitmap or drawable from a ByteBuffer, file or URL. It offers several advantages over BitmapFactory including support for exact scaling, single-step decoding to hardware memory, support for post-processing decode and decoding of animated images. ImageDecoder allows you to supply a callback, which is called after the header is decoded you can alter the output rather than having it decode the header twice. Decode Drawable allows you to decode drawbles directly. If the encoded image is an animated GIF or WebP, the drawable will be an instance of the new animated drawable.
+
+```Kotlin
+@Throws(IOException::class)
+fun getPostProcessedDrawableSample(file: File, width: Int, height: Int): Drawable {
+	val src = ImageDecoder.createSource(file)
+
+	return ImageDecoder.decodeDrawable(src) { decoder, info, _ ->
+		val imageSize = info.size
+		val sampleSize = Math.min(imageSize.height/height, imageSize.width/width)
+		if(sampleSize < 0) sampleSize = 1
+		decoder.setResize(sampleSize)
+		decoder.setPostProcessor { canvas ->
+			canvas.drawColor(Color.RED, PorterDuff.Mode.OVERLAY)
+			PixelFormat.UNKNOWN
+		}
+
+	}
+}
+```
+#### HDR VP9 Video
+To help deliver the highest quality viewing experience,
 
 
 #### Reference
