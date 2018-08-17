@@ -50,7 +50,28 @@ fun getPostProcessedDrawableSample(file: File, width: Int, height: Int): Drawabl
 }
 ```
 #### HDR VP9 Video
-To help deliver the highest quality viewing experience,
+To help deliver the highest quality viewing experience, Android P adds built-in support for HDR VP9 Profile 2, enabling the delivery of HDR-enabled movies. We also added support for substantially improved image compression with HEVC compressed HEIF images, which means smaller downloads and less on-device storage. And we're in the process of enhancing and refactoring the media APIs, so stay toned. 
+
+#### Dual Camera Support for Apps
+You can access streams simultaneously from devices that have logical cameras consisting of multiple physical devices, such as dual front or dual rear cameras, enabling new app possiblities. Other improvements in camera include new session parameters to reduce delays during inital capture and surface sharing, reducing the need for camera clients to stop and start camera streaming.
+
+#### OIS and Display-based Flash
+We've also added APIs for display-based flash support and access to OIS timestamps to allow apps to perform image stabilization or use this data for special effects. 
+
+#### Indoor Positioning
+Android P adds an API for the IEEE 802.11 MC Wi-Fi protocol, also known as wifi round trip time RTT, to let you take advantage of indoor positioning in your apps. Android P devices with hardware support can use RTT to measure the distance to a nearby WIFI access point that supports the protocol. The device doesn't need to connect to the AP to use RTT. And to maintain privacy, only the phone is able to determine the distance. By measuring distances to three or more access points, apps can calculate their positions with an accuracy of 1 to 2 meters.
+
+#### GlobalPlatform Open Mobile API
+Android P adds an implementation of the GlobalPlatform Open Mobile API to Android. On supported devices, apps can use OMAPI to access NFC secure elements on Android devices to enable smart card payments and other secure services. 
+
+#### Neural Networks API 1.1 New Ops
+The Neural Network API was introduced in Android 8.1 to provide support for accelerated on-device machine learning. In Android P, we're expanding and improving the API, adding support for nine new ops. On Pixel2, the DP1 build includes an accelerated driver for quantized models. 
+
+Android P is part of our longer-term initiative to modernize the foundations of the platform and the apps that run on it. We announced recently that Google Play will require all app updates to at least target Android Oreo by November 2018 and require apps with an NDK library to provide 64-bit support in 2019. In line with these changes, Android P will warn users with a dialog when they install an app that targets an Android platform earlier than Android 4.2, and future versions will continue to increment that limit.
+
+Every Android developer should start planning to migrate to target at least API 26 now. And we've built a checklist of resources to help and support this effort. We're always looking for ways to improve the user and developer experience. In this spirit, we're working to ensure that apps don't use non-SDK interfaces since doing so risks crashes for users and emergency rollouts for developers. 
+
+
 
 
 #### Reference
