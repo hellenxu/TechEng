@@ -40,7 +40,8 @@ And the last we looked at for us is on deployment speed. So deployment speed is 
 
 Alright, so recap, we've done a number of improvements for Project Marble and we're really excited about those things. And thank you to all of you who filed bugs and shared with us those opt-in data. Without that information, we wouldn't know what to prioritize to make things better for your development. 
 
-But quality is definitely not done. We set a new quality bar for ourselves that we want to maintain going forward.
+But quality is definitely not done. We set a new quality bar for ourselves that we want to maintain going forward. So with this quality bar set forward for ourselves, we want to continue working on new features for Android Studio. So today we're giving you a preview of a lot of the new things we're working on inside of Android Studio. But before we migrate these features from Canary to Stable, we're going to prioritize and assess those features and match them to the quality bar that we set during Project Marble. So instead of talking about all those cool features we added to Android Studio, I'm going to have Tor walk us through some of the cool things that we have inside of Android Studio.
+
 
 
 #### Reference
