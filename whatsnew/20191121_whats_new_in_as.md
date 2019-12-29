@@ -65,6 +65,462 @@ on your build speed. So once you turn this on, it'll create a binding class for 
 All right. So view binding makes it really easy to access and update your views, but we're working on a brand new framework to make it even more powerful and easy. And that's Jetpack Compose. So this is Hello World from Compose. So what we do here is we can take an existing composable, or a widget, and we can wrap it in our own function and customize it with some arguments. And as soon as we put a composable annotation on it, voila, we've created our own widget. And we can also market with this preview annotation. And then it shows up in a preview pane inside the Kotlin file. This is a bit like our sample data support in the old Layout Editor, but now applied for Compose. And so we've created our own widget called Greeting here. We can take that further and we can throw a for-loop around it and other conditionals. And we can wrap it inside another composable. So you compose new widgets by adding composables. So the name makes a lot of sense. So we had the preview again, and note that this preview is not limited to one. So here, I have a button widget that I've created. It has two states, on and off. And notice how I can preview all the states, including in dark mode as well, which is pretty handy.
 
 
+And here's an even more complex examplefrom our Newsreader app.
+So this is a card we used to show available stories.
+And here, you can see we're also showing you,
+for example, what this looks like with a larger system font.
+So the embedded preview is really
+great for tweaking your views as well as seeing what they'll
+look like across different dimensions like theme and font
+size and things like that.
+But sometimes, you really want to run the app
+to modify the behavior.
+And so I'm very excited about this next feature.
+If you watched the keynote, you've already seen it,
+but I'm still excited about it.
+This is a feature I've wanted since before Studio 1.0
+but it was very technically challenging,
+but the team is in the process of pulling it off.
+And that is, of course, the ability
+to have the emulator embedded inside the IDE.
+Yeah, I love this.
+[APPLAUSE]
+So this is the real emulator, right?
+It's not just simulating the app in isolation.
+I can install accounts, I can launch intents and all that.
+And what's nice about having it inside the IDE
+is that it participates in window management, right?
+So if I'm the source editor and I want to focus,
+I press a key binding, I'm in my editor,
+and I can bring it back very easily.
+So it's super convenient.
+So this is my Compose app running.
+We can drill into it here.
+And let's click on the Bookmark icon.
+And when I do that, I'm launching
+an attempt and that's actually not what I wanted to do.
+So I've introduced a bug in the app.
+So let's just go and fix that.
+So I'll jump to the related code.
+This is the toggle bookmark code.
+Oh yeah, I had a to-do here and a stopship marker, too.
+Let's try Apply Changes.
+And it's now reloaded the app, and I can invoke the bookmark
+and it works.
+So this combination is pretty productive right here,
+running in the IDE.
+One last thing I'll mention about our Compose support
+is we're working pretty hard on making the editor
+experience better, right?
+So for code completion, for example,
+we are ranking composables to the top.
+Notice that we're also-- normally,
+you'll have types on the right, but we are removing types
+from the right so we have more space
+to show you all the parameters.
+We're hiding defaults.
+And we also have a special code completion insert handler.
+So if I, for example, insert a row,
+if I don't enter anything as a parameter and I hit Enter,
+we remove the parameter list, and so on.
+So we're trying to make this editor really smooth
+as you're working on Compose.
+OK.
+We're also working on the classic view system.
+So let me switch over to the Layout Editor.
+It's the Sunflower app.
+So here's an XML file.
+Now, do you remember how, in the Compose file,
+we included the previewer right there in the source editor?
+We've done the same thing for layout XML files.
+We used to have a separate tool window,
+and in the Layout Editor, we had Design and Source tabs.
+What we're doing now is, instead, we
+have these three buttons at the top.
+This works in Compose.
+It works in the Layout Editor.
+And you can use key bindings to quickly map between them.
+So if I press Control-Shift-Left here, I'm in pure source.
+If I go to the middle one, I can have them side by side.
+And if I go all the way to the right,
+I have the full Layout Editor.
+And this also works for custom views.
+So here, I have an Android custom view,
+and I now, within the Java or Kotlin editor,
+I can see my custom view.
+When I'm tweaking the [INAUDIBLE] code,
+it's right there.
+And it makes it a lot easier to work with.
+[APPLAUSE]
+Right.
+So let's look at the Layout Inspector.
+So I'm going to run this app again.
+Open up the emulator.
+All right.
+So this is the Layout Inspector.
+And actually, that's not.
+That's the app running.
+This is the Layout Inspector.
+And it's going to attach to my running app.
+See, OK, it's already connecting.
+So what it's doing now, it's going to pull down
+the whole view hierarchy.
+There it is.
+Let's give ourselves some more space.
+So the first thing I can do here is I can click on various views
+and I can see their values.
+We had that in the old Layout Inspector.
+But what's new is this Declared Attributes section.
+So here, you can see resources that
+are coming from binary resources or XML resources.
+So let's take a look at the label, Add Plant.
+Where's that coming from?
+Well, I can expand that and I can
+see that it was actually specified
+right there in the Layout file.
+And I can continue with the whole resolution stack
+and see the exact line and language that it came from.
+And normally, it's not difficult to find
+where a string came from.
+You can just search for it.
+But what about colors?
+So you can see that this button has a green color.
+Where's is that coming from?
+And again, I can expand and you can
+see we have multiple alternatives here.
+And it's probably too small for you to see.
+I mean, I can barely see it from here.
+But there's strikethrough on all the theme references
+for material where this color would normally
+be specified as gray.
+Instead, we have some other attributes
+that have a higher priority that are winning,
+so I can see that the real green is
+coming from this local layout reference
+to a theme attribute, which again, we
+can chase down the values for.
+So this is a bit like the Chrome DevTools,
+where you can sort of investigate
+the whole resolution to figure out why, oh why is this text,
+whatever font or color you're concerned about.
+One other thing to point out is that this inspector is not just
+a static dump of the view hierarchy.
+It is optionally live.
+So if I go up, and in my running emulator, click, for example,
+on the Plant list, you can see that it's now
+going to fetch all the surfaces and stay up to date.
+So I can continue to see what's happening in the app.
+And one really nice thing about that
+is that I can now drag this in 3D
+and see the full view stack here.
+[APPLAUSE]
+And the really useful thing is, look,
+we have a full texture sitting back here.
+And notice how we're showing textures
+that are hidden, right?
+So this is not just a screen grab from the device.
+We're getting all the surfaces because this
+is running on Android 10.
+So we had to actually add some support
+to do the value tracking and this bitmap fetching.
+But now, we can see that we have this texture hidden
+by the screen.
+So this is overdraw, this is bad,
+and this tool makes it easy to track down
+those kinds of bugs as well as issues with clipping.
+So that's the Layout Inspector.
+All right.
+Let's talk about the Motion Editor.
+All right.
+So here, I've created a very simple constraint layout.
+And what I want to do is I want to animate this
+so that it's a bit more lively when this layout shows up.
+So what I do is I open up Convert to Motion Layout.
+This will migrate my layout into a motion layout,
+plus create a scene file that's going
+to store all the key frames that we're about to create.
+So the first thing I can do is to select the start state.
+So we have start and end, right?
+I'll select a start state, and then I'll
+start changing some of the constraints in the scene here.
+So I'm going to be deleting this to move the text to the top.
+Let's also attach this button to the bottom.
+And now, we've already created ourselves an animation.
+So if I switch to the transition view and I hit play,
+you can see it's now going to start animating this.
+And we can go ahead and turn on showing paths
+so you can sort of see these lines here
+showing how these widgets are going to move.
+So the next thing I can do is I can
+try to make this motion a bit more interesting.
+So I don't want a linear path for the label.
+So I'm going to now add a key frame,
+a position-based key frame, on the text view.
+And I'm going to have the type be relative to parent.
+And let's move it about 100%.
+I just learned, by the way, that in Android, we
+use one-based percent, which doesn't make a lot of sense.
+All right.
+So you can see now that the motion is a little bit more
+interesting, right?
+We can also fade in the button from the bottom.
+So what I do then is I add a key frame based on an attribute.
+So we'll pick the alpha and we'll put this on the button.
+So now, this is going to fade in from about 0.5,
+and we can change that to be--
+let's start from completely transparent instead.
+So now, this button is going to fade in.
+And let's add some rotations because I like rotations.
+So another key attribute.
+And this time, we're going to be rotating the text view.
+So rotation on alpha.
+It starts out at 45 degrees.
+I like to give it a bit more spin
+because rotations are cool.
+So let's do 145.
+And we should also move it off screen
+so it doesn't start in the middle.
+And so to do that, I will first select the States, Text View,
+and then we'll add bottom padding here.
+Let's say 300 or so.
+All right, let's see how this is starting to look.
+So when I play, OK, we got some motion.
+[APPLAUSE]
+Yeah.
+So you can see that you can really go overboard.
+Do you remember the web in the old days
+with the spinning logos on the web page?
+Yeah.
+Don't go too far.
+But with some tasteful design, you
+can really accomplish a lot with this tool.
+So let me switch to a slightly more complex layout.
+So what you see here is just start and end states, right?
+Well, that's just the default.
+You can also create many other states.
+So here, I have a base state.
+This is just a bunch of cards laid out with different colors.
+I have this other state where all the cards are
+on top of each other, and then there's
+a third state where they're all sort of off screen
+up to the left.
+And now you can sort of sequence the transition
+between all these different states exactly how you
+want them.
+So we can have this transition.
+We can have this transition.
+We can have-- let's see.
+I chose a state.
+We can have this transition.
+And let's check out the translation
+curves down here, too.
+So you can do really advanced things with this tool.
+The last thing I want to highlight
+is that you can easily also create click and swipe
+handlers.
+So when you do that, Motion Layout
+is going to add the code for you to basically add listeners.
+So if I had a swipe handler, for example, the user can swipe
+and then Motion Layout will scrub
+through the animation, a bit like the Quick Settings
+pull-down on Android.
+You can do this through the tool,
+which is pretty fantastic.
+There is so much to show here that I don't have time
+to get into.
+But the good news is, if you stay
+in your seats for two or three more hours,
+there's a whole talk from the Design Tools team
+that are going to show you through all the goodies
+that I couldn't show you today.
+All right.
+So a couple more quick things to show you.
+First of all, in the Resource Manager,
+we've updated the Vector Asset Wizard with brand new clipart.
+So the Materials Design website has many icons.
+We've added them.
+More importantly, we now support all the different types.
+So you can switch from, for example, filled icons
+to outline icons to even the two-tone icons.
+So hopefully, you'll find that useful.
+Another thing we recently did for editing
+is we ported all of our Android live templates to Kotlin.
+So if I, for example, want to add a logging
+tag into this class, I just type logt, hit Tab.
+This will create a logging tag for me
+based on the current file name.
+Right?
+And more importantly, or more awesomely, if you ask me, logm.
+This one will basically log the current method name
+with all the parameters.
+Right?
+[APPLAUSE]
+And if you want a block structuring comment
+in between SPC tab, you can type in your comment, whatever.
+So what you want to do is open up the Live Templates
+UI, Live Templates Settings, and browse through all of these
+to learn what tags you can type in with tab.
+It'll save you a lot of time, I think.
+All right.
+Next, I'm going to show you some stuff in the emulator.
+So look, still also runs standalone.
+So if I pull up the options, Android now
+supports multiple displays.
+And so we've made it really easy to test multiple displays
+in the emulator.
+All I have to do is go in and add additional displays.
+I can tweak what kinds of density I want.
+So it's suggesting this layout right here.
+If I hit Apply Changes now, you can
+see I have my emulator connected to multiple displays
+that I can then start interacting with.
+Yeah.
+So definitely give that a try.
+All right.
+We've also made it easier to test locations.
+So let's say I want to test motion.
+Let's say I have some sort of fitness app or whatever.
+What it can do is say, I want to navigate to the Googleplex.
+And I'm going to start from where
+we are right now, which is Google Building MP7, I think.
+I can now save this as a route.
+I'll call it Demo.
+Save.
+And now, I can play this route.
+And let's see what happens if I go into Google Maps
+here on my emulator.
+If I click the Where Am I icon, it's
+now supposed to be showing us that we're moving.
+And we are.
+[APPLAUSE]
+All right.
+Unless I forgot something, I think that's my demo.
+So now, I'm going to turn it back over to Jamal,
+and I hope you enjoy Studio 4.0.
+[APPLAUSE]
+JAMAL EASON: All right, so some really cool demos.
+Unfortunately, we don't have time to demo everything,
+so I'll spend a few moments talking
+about some additional features we're launching inside
+of Android Studio.
+So first, we're updating dynamic features.
+So as you know, today, with dynamic features,
+I can have a module feature connected to the main module.
+What we're updating is that now, you can have feature
+to feature dependency.
+So let's say I have a camera module
+and I want to add a video module to that.
+So now, I have a direct dependency to the camera module
+without having a direct dependency on the app module.
+So that's a cool feature we've added for dynamic features.
+Another thing that we added behind the scenes
+is actually improvements to the Layer Editor.
+So actually, what we did, we took the rendering libraries
+that we have on the devices and put them directly in the IDE.
+So things like Skia and ICU are now
+available inside of Android Studio.
+And what that enables is two important things.
+One is the performance.
+So all the demos you saw Tor using
+with reactive performance, that's there.
+And two, having higher fidelity accuracy.
+So specifically, things like improving text justification
+mode is now supported.
+Having detailed shadows or having 3D perspective.
+Or having text path rendering are now
+available inside the Layout Editor.
+So this is all happening behind the scenes
+and helping you have a better experience
+inside of Android Studio.
+Just as a quick update, we also did a big pass update
+on our templates for fragments.
+So we have a new wizard that's there.
+We updated all the templates for fragments.
+So if you use fragments, check that out as well
+inside of Android Studio.
+Now, a big update for the Android Emulator
+is something we're calling kind of this dual ARM x86 support.
+So let's say, if you have any C++ code today that had ARM
+support only, you weren't able to use the x86 emulator
+because that didn't support the fast experience.
+And so today, we have a special version
+of the emulator that supports both ARM APIs and x86.
+So it can run that Legacy or C++ code on one emulator and have
+that fast x86 experience.
+So we just released this on one version,
+and we're really looking for your early feedback
+to make sure we have all the right use cases.
+And we'll scale this out as you add more features
+to this going forward.
+And I also have an update on Chrome OS.
+So at I/O, we talked about having
+full first-class support for Chrome OS for Android Studio.
+And one pain point for that is that, if you wanted
+to debug your app or deploy your app,
+it required you to have an external Android device
+or boots your Chrome OS device into the developer mode.
+Now, that's no longer needed.
+You can do all your end-to-end development right inside
+of your Chrome OS device.
+So with the updating release of M80 of Chrome OS,
+you can now do your development, debugging,
+and deploy the app right directly into Chrome OS
+to see it running inside of the Chrome OS laptop.
+[APPLAUSE]
+OK.
+So we talked about a range of features that we're releasing.
+Things in the stable channel and also
+things on the bleeding edge features on the Canary release
+channel.
+Now, let me talk about the Canary release channel.
+Of course, it is bleeding edge, right?
+A lot of things are just in development
+and we're trying to explore things that are going on.
+And to that end, it's actually very lightly tested.
+So we do recommend running both stable version of Android
+Studio and the Canary version of Android Studio.
+And you can do that as long as you
+have your Gradle plugin tagged with the stable version
+of Android Studio.
+You can run both in parallel on the same project
+with no issues.
+TOR NORBYE: But for build attribution, you'll need 4.0.
+JAMAL EASON: Yes.
+[INAUDIBLE]
+But as far as feedback goes, we do
+encourage you to use Canary because it's the best feedback
+channel for us.
+If you file a issue or a bug on stable,
+it's a little too late for us before we
+moved onto the next version.
+So if you like the features you saw today
+and want to give us feedback, please use the Canary channel
+for that feedback mechanism.
+But even more importantly for us,
+we're actually very quality-driven.
+Going back to my earlier point about Project Marble,
+we set a new bar for ourselves for quality.
+So some of the things you might see in Canary
+may not make it into the initial version of stable
+because it may not be ready.
+And that's OK because we want to make
+sure it's stable and has a high-quality release
+before we make it available to you in the stable release
+version.
+OK.
+So we talked about a range of things today,
+and thinking about a recap, we talked about some things
+that are actually in Android Studio 3.6,
+things like the multi-display mode, Design Tools
+updates, and the Intellij update for 2019.2.
+And then things like the Jetpack Compose and Motion Editor
+support, those are inside of Android Studio 4.0, which is
+currently available in Canary.
+So please check those out as you're
+trying out Android Studio. And with that, please download Android Studio Canary to try these features out.
+Again, I'm Jamal and this is Tor,
+and thanks for coming to our session.
+
 
 #### Reference
 [Youtube video](https://youtu.be/XPMrnR1_Biw)
