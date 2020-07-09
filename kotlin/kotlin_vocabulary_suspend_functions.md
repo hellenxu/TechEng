@@ -98,5 +98,60 @@ fun loginUser(userId: String, password: String, completion: Continuation<Any?>){
 
 ```
 
+Notice that this code is incomplete since the different states have no way to share information. How is the problem solved?
 
+The compiler will use the continuation parameter to do it. This is why the generic of the Continuation is nullable Any instead of the return type of the original function, that was User. The compiler will create a private class that first holds the required data, and second, calls the loginUser function recursively to resume the execution of the function that was suspended. Let's see what the class looks like. Let's call that generated class, loginUserStateMachine. It's a private class that extends from CoroutineImpl, which is a subtype of Continuation. In the constructor, it takes this continuation object, named completion, that will be used to communicate back the result of this function to the function that called it. This is the same continuation we called in the last state of the state machine. But also, this class saves the variables that were declared in the original suspend function. And there are other variables that are common for all CoroutineImpls. The result variable is the result from the previous continuation and label keeps the state of the state machine. Also, it overrides the invokeSuspend function that is used to resume the state machine. It will call the loginUser function to trigger the state machine again. It calls it with just information of the continuation object. The rest of parameters in the login user function signature become nullable. At that point, label will be already in the next state to execute, and the result of the previous state's continuation will be assigned. An instance of this class is added to loginUser.
 
+```kotlin
+class LoginUserStateMachine(completion: Continuation<Any?>): CoroutineImpl(completion) {
+	var user: User? = null
+	var userDb: UserDb? = null
+
+	var result: Any? = null
+	var label: Int = 0
+
+	override fun invokeSuspend(result: Any?) {
+		this.result = result
+		loginUser(null, null, this)
+	}
+}
+
+```
+
+The first thing it needs to do is knowing if it is the first time the function is called or if the function has resumed from a previous state. It does it by checking if the continuation passed in is of type LoginUserStateMachine or not. If it's the first time, it will create a new LoginUserStateMachine instance and will store the completion instance received as a parameter. If it's not, it will just carry on executing the state machine. For completion, this is what the rest of the function looks like. You can see how the rest of the code uses the continuation variable to read the result of the last state of the state machine. But also, for every state, it checks if it never happened while this function was suspended. In the last state, it calls resume on the continuation of the function that called this one.
+
+```kotlin
+fun loginUser(userId: String?, password: String?, completion: Continuation<Any?>){
+	val continuation = completion as? LoginUserStateMachine ?: LoginUserStateMachine(completion)
+
+	when (continuation.label) {
+		0 -> {
+			// Label 0 -> first execution
+			throwOnFailure(continuation.result)
+			continuation.label = 1
+			userRemoteDataSource.loginUser(userId, password, continuation)
+		}
+
+		1 -> {
+			// Label 1 -> resumes from userRemoteDataSource
+			throwOnFailure(continuation.result)
+			continuation.user = continuation.result as User
+			continuation.label = 2
+			userLocalDataSource.logUserIn(continuation.user, continuation)
+		}
+
+		2 -> {
+			// Label 2 -> resumes from userLocalDataSource
+			throwOnFailure(continuation.result)
+			continuation.userDb = continuation.result as UserDb
+			// continuation.cont is the outside continuation function
+			continuation.cont.resume(continuation.userDb)
+		}
+
+		else -> throw IllegalStateException(...)
+	}
+}
+
+```
+
+As you can see, the Kotlin compiler does a lot under the hood. Because of the implementation of the generated state machine, a suspend function won't return until all the work that has started has completed. How can the code suspend without blocking the thread? Everything needed to resume the execution of a suspend function is in the Continuation object that is passed around, so it can be resumed at any point.
